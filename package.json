@@ -11,9 +11,8 @@
     "@types/node": "^16.18.60",
     "@types/react": "^18.2.34",
     "@types/react-dom": "^18.2.14",
-    "autoprefixer": "^10.4.16",
+    "apollo": "^2.34.0",
     "graphql": "^16.8.1",
-    "postcss": "^8.4.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.48.2",
@@ -24,11 +23,12 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "tailwind:build": "npx tailwindcss-cli@latest build -i src/styles/tailwind.css -o src/styles/styles.css",
-    "start": "npm run tailwind:build & react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "compile": "graphql-codegen",
+    "watch": "graphql-codegen -w"
   },
   "eslintConfig": {
     "extends": [
@@ -47,5 +47,15 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.0",
+    "@graphql-codegen/client-preset": "^4.1.0",
+    "@graphql-codegen/typescript": "^4.0.1",
+    "@graphql-codegen/typescript-operations": "^4.0.1",
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "@types/react-router-dom": "^5.3.3",
+    "autoprefixer": "^10.4.16",
+    "postcss": "^8.4.31"
   }
 }

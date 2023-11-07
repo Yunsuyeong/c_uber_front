@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { client } from "./apollo";
 import App from "./App";
+import "./styles/tailwind.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
