@@ -4,7 +4,7 @@ import { FormError } from "../components/form-error";
 import { gql, useMutation } from "@apollo/client";
 import logo from "../images/logo.svg";
 import { Button } from "../components/button";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import {
   CreateAccountMutation,
@@ -28,7 +28,7 @@ const Create_Account_Mutation = gql`
 `;
 
 const CreateAccount = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -45,7 +45,7 @@ const CreateAccount = () => {
       createAccount: { ok, error },
     } = data;
     if (ok) {
-      history.push("/");
+      navigate("/");
     }
   };
   const [createAccount, { data: createAccountData, loading }] = useMutation<

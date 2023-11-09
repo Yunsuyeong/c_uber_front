@@ -1,25 +1,18 @@
-import { gql, useQuery } from "@apollo/client";
 import React from "react";
-import { isLoggedInVar } from "../apollo";
-import { ReportHandler } from "web-vitals";
-import { MeQuery, MeQueryVariables } from "../__generated__/graphql";
+import {
+  BrowserRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
+import Restaurants from "../pages/client/restaurants";
+import Header from "../components/header";
+import useMe from "../hooks/useMe";
 
-const Me_Query = gql`
-  query me {
-    me {
-      id
-      email
-      role
-      verified
-    }
-  }
-`;
+const ClientRoutes = [<Route path="/" element={<Restaurants />} />];
 
 export const LoggedInRouter = () => {
-  const { data, loading, error } = useQuery<MeQuery, MeQueryVariables>(
-    Me_Query
-  );
-  console.log(data);
+  const { data, loading, error } = useMe();
   if (!data || loading || error) {
     return (
       <div className="h-screen flex justify-center items-center">
@@ -28,9 +21,12 @@ export const LoggedInRouter = () => {
     );
   }
   return (
-    <div>
-      <h1>{data?.me?.role}</h1>
-      <button onClick={() => isLoggedInVar(false)}>Logout</button>
-    </div>
+    <Router>
+      <Header email={data.me.email} />
+      <Routes>
+        {data.me.role === "Client" && ClientRoutes}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Router>
   );
 };
