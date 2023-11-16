@@ -8,8 +8,14 @@ import {
 import Restaurants from "../pages/client/restaurants";
 import Header from "../components/header";
 import useMe from "../hooks/useMe";
+import ConfirmEmail from "../pages/user/confirm-email";
+import EditProfile from "../pages/user/edit-profile";
 
-const ClientRoutes = [<Route path="/" element={<Restaurants />} />];
+const ClientRoutes = [
+  <Route key={1} path="/" element={<Restaurants />} />,
+  <Route key={2} path="/confirm" element={<ConfirmEmail />} />,
+  <Route key={3} path="/edit-profile" element={<EditProfile />} />,
+];
 
 export const LoggedInRouter = () => {
   const { data, loading, error } = useMe();
@@ -25,7 +31,8 @@ export const LoggedInRouter = () => {
       <Header email={data.me.email} />
       <Routes>
         {data.me.role === "Client" && ClientRoutes}
-        <Route path="*" element={<Navigate to="/" replace />} />
+
+        {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
     </Router>
   );
