@@ -32,7 +32,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --verbose",
+    "test:coverage": " npm test -- --coverage --watchAll=false",
     "eject": "react-scripts eject",
     "compile": "graphql-codegen",
     "watch": "graphql-codegen -w"
@@ -65,5 +66,12 @@
     "@types/react-router-dom": "^5.3.3",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.31"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "./src/components/**/*.tsx",
+      "./src/pages/**/*.tsx",
+      "./src/routers/**/*.tsx"
+    ]
   }
 }

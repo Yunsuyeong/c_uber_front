@@ -3,7 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { HelmetProvider } from "react-helmet-async";
 import { client } from "./apollo";
-import App from "./App";
+import App from "./components/app";
 import "./styles/tailwind.css";
 
 const root = ReactDOM.createRoot(
