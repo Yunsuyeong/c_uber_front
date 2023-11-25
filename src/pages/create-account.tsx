@@ -18,7 +18,7 @@ interface ICreateAccountForm {
   role: UserRole;
 }
 
-const Create_Account_Mutation = gql`
+export const Create_Account_Mutation = gql`
   mutation createAccount($createAccountInput: CreateAccountInput!) {
     createAccount(input: $createAccountInput) {
       ok

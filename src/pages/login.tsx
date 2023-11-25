@@ -18,7 +18,7 @@ interface ILoginForm {
   password: string;
 }
 
-const Login_Mutation = gql`
+export const Login_Mutation = gql`
   mutation login($loginInput: LoginInput!) {
     login(input: $loginInput) {
       ok
@@ -97,7 +97,7 @@ const Login = () => {
             <FormError errorMessage={"Please enter a valid Email"} />
           )}
           <input
-            {...register("password", { minLength: 2, required: true })}
+            {...register("password", { required: true })}
             type="password"
             placeholder="Password"
             required
