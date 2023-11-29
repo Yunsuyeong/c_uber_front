@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
+import PageTitle from "../../components/page-title";
 import { Restaurant } from "../../components/restaurant";
 import {
   SearchRestaurantQuery,
@@ -54,11 +55,9 @@ const Search = () => {
   console.log(loading, data, called);
   return (
     <div>
-      <Helmet>
-        <title>{query} | Uber Eats </title>
-      </Helmet>
+      <PageTitle title={`${query}`} />
       {!loading && (
-        <div className="max-w-screen-2xl mx-auto mt-8 px-8 pb-20">
+        <div className="max-w-screen-xl mx-auto mt-8 px-8 pb-20">
           <h1 className="text-xl text-center font-bold">
             Search results for '{query}' : {data?.searchRestaurant.totalResults}
           </h1>

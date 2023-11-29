@@ -2,6 +2,7 @@ import { gql, useMutation, useApolloClient } from "@apollo/client";
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
+import PageTitle from "../../components/page-title";
 import useMe from "../../hooks/useMe";
 import {
   VerifyEmailMutation,
@@ -61,9 +62,7 @@ const ConfirmEmail = () => {
 
   return (
     <div className="flex flex-col items-center justify-center mt-52">
-      <Helmet>
-        <title>Verify Email | Uber Eats</title>
-      </Helmet>
+      <PageTitle title={"Verify Email"} />
       <h2 className="text-lg font-medium mb-2">Confirming Email...</h2>
       <h4 className="text-gray-700 text-sm">
         Please wait. Don't close this page

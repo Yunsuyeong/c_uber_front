@@ -3,6 +3,7 @@ import React from "react";
 import { Helmet } from "react-helmet-async";
 import { useForm } from "react-hook-form";
 import { Button } from "../../components/button";
+import PageTitle from "../../components/page-title";
 import useMe from "../../hooks/useMe";
 import {
   EditProfileMutation,
@@ -82,9 +83,7 @@ const EditProfile = () => {
   };
   return (
     <div className="mt-52 flex flex-col justify-center items-center">
-      <Helmet>
-        <title>Edit Profile | Uber Eats</title>
-      </Helmet>
+      <PageTitle title={"Edit Profile"} />
       <h4 className="text-2xl font-semibold mb-3">Edit Profile</h4>
       <form
         onSubmit={handleSubmit(onValid)}

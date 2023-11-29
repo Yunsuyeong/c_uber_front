@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Category } from "../../components/category";
+import PageTitle from "../../components/page-title";
 import { Restaurant } from "../../components/restaurant";
 import {
   RestaurantsQuery,
@@ -76,9 +77,7 @@ const Restaurants = () => {
   };
   return (
     <div>
-      <Helmet>
-        <title>Home | Uber</title>
-      </Helmet>
+      <PageTitle title={"Home"} />
       <form
         onSubmit={handleSubmit(onValid)}
         className="w-full flex items-center justify-center bg-gray-700 py-32"
@@ -92,7 +91,7 @@ const Restaurants = () => {
         />
       </form>
       {!loading && (
-        <div className="max-w-screen-2xl mx-auto mt-8 px-8 pb-20">
+        <div className="max-w-screen-xl mx-auto mt-8 px-8 pb-20">
           <div className="max-w-xs flex justify-around mx-auto">
             {data?.allCategories?.categories?.map((category) => (
               <Link key={category.id} to={`/category/${category.slug}`}>

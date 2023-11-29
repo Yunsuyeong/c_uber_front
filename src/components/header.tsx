@@ -20,7 +20,7 @@ const Header: React.FC<IHeader> = () => {
         </div>
       )}
       <header className="py-4">
-        <div className="w-full max-w-screen-2xl flex justify-around items-center mx-auto px-5 xl:px-2">
+        <div className="w-full max-w-screen-xl flex justify-around items-center mx-auto px-5 xl:px-2">
           <img
             onClick={() => navigate("/")}
             src={logo}

@@ -8,14 +8,48 @@ import EditProfile from "../pages/user/edit-profile";
 import Search from "../pages/client/search";
 import Category from "../pages/client/category";
 import Restaurant from "../pages/client/restaurant";
+import MyRestaurants from "../pages/owner/my-restaurants";
+import AddRestaurants from "../pages/owner/add-restaurant";
 
-const ClientRoutes = [
-  <Route key={1} path="/" element={<Restaurants />} />,
-  <Route key={2} path="/confirm" element={<ConfirmEmail />} />,
-  <Route key={3} path="/edit-profile" element={<EditProfile />} />,
-  <Route key={4} path="/search" element={<Search />} />,
-  <Route key={5} path="/category/:slug" element={<Category />} />,
-  <Route key={6} path="/restaurant/:id" element={<Restaurant />} />,
+const clientRoutes = [
+  {
+    path: "/",
+    element: <Restaurants />,
+  },
+  {
+    path: "/search",
+    element: <Search />,
+  },
+  {
+    path: "/category/:slug",
+    element: <Category />,
+  },
+  {
+    path: "/restaurant/:id",
+    element: <Restaurant />,
+  },
+];
+
+const commonRoutes = [
+  {
+    path: "/confirm",
+    element: <ConfirmEmail />,
+  },
+  {
+    path: "/edit-profile",
+    element: <EditProfile />,
+  },
+];
+
+const restaurantRoutes = [
+  {
+    path: "/",
+    element: <MyRestaurants />,
+  },
+  {
+    path: "/add-restaurant",
+    element: <AddRestaurants />,
+  },
 ];
 
 export const LoggedInRouter = () => {
@@ -31,8 +65,17 @@ export const LoggedInRouter = () => {
     <Router>
       <Header email={data.me.email} />
       <Routes>
-        {data.me.role === "Client" && ClientRoutes}
-
+        {data.me.role === "Client" &&
+          clientRoutes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        {data.me.role === "Owner" &&
+          restaurantRoutes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
+        {commonRoutes.map((route) => (
+          <Route key={route.path} path={route.path} element={route.element} />
+        ))}
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
     </Router>

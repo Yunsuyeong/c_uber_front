@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { isLoggedInVar, tokenVar } from "../apollo";
 import { LOCALSTORAGE_TOKEN } from "../constants";
+import PageTitle from "../components/page-title";
 
 interface ILoginForm {
   email: string;
@@ -67,9 +68,7 @@ const Login = () => {
   };
   return (
     <div className="h-screen flex flex-col items-center mt-10 lg:mt-28">
-      <Helmet>
-        <title>Login | Uber Eats</title>
-      </Helmet>
+      <PageTitle title={"Login"} />
       <div className="w-full max-w-screen-sm flex flex-col items-center px-5">
         <img src={logo} className="w-52 mb-10" />
         <h4 className="w-full text-left text-3xl font-medium mb-5">

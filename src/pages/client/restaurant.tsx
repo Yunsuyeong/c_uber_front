@@ -1,6 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import PageTitle from "../../components/page-title";
 import {
   RestaurantQuery,
   RestaurantQueryVariables,
@@ -42,6 +43,7 @@ const Restaurant = () => {
   console.log(data);
   return (
     <div>
+      <PageTitle title={`${data?.restaurant.restaurant?.name}`} />
       <div
         className="bg-gray-700 bg-center bg-cover py-48"
         style={{

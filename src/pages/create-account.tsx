@@ -11,6 +11,7 @@ import {
   CreateAccountMutationVariables,
   UserRole,
 } from "../__generated__/graphql";
+import PageTitle from "../components/page-title";
 
 interface ICreateAccountForm {
   email: string;
@@ -71,9 +72,7 @@ const CreateAccount = () => {
   };
   return (
     <div className="h-screen flex flex-col items-center mt-10 lg:mt-28">
-      <Helmet>
-        <title>Create Account | Uber Eats</title>
-      </Helmet>
+      <PageTitle title={"Create Account"} />
       <div className="w-full max-w-screen-sm flex flex-col items-center px-5">
         <img src={logo} className="w-52 mb-10" />
         <h4 className="w-full text-left text-3xl font-medium mb-5">
