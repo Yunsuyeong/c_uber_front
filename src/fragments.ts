@@ -22,3 +22,21 @@ export const Category_Fragment = gql`
     restaurantCount
   }
 `;
+
+export const Dish_Fragment = gql`
+  fragment DishParts on Dish {
+    id
+    name
+    price
+    photo
+    description
+    options {
+      name
+      extra
+      choices {
+        name
+        extra
+      }
+    }
+  }
+`;

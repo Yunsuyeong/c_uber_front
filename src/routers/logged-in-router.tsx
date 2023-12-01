@@ -10,6 +10,8 @@ import Category from "../pages/client/category";
 import Restaurant from "../pages/client/restaurant";
 import MyRestaurants from "../pages/owner/my-restaurants";
 import AddRestaurants from "../pages/owner/add-restaurant";
+import MyRestaurant from "../pages/owner/my-restaurant";
+import AddDish from "../pages/owner/add-dish";
 
 const clientRoutes = [
   {
@@ -49,6 +51,14 @@ const restaurantRoutes = [
   {
     path: "/add-restaurant",
     element: <AddRestaurants />,
+  },
+  {
+    path: "/restaurant/:id",
+    element: <MyRestaurant />,
+  },
+  {
+    path: "/restaurant/:id/add-dish",
+    element: <AddDish />,
   },
 ];
 

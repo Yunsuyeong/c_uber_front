@@ -1,6 +1,7 @@
-import { gql, useMutation } from "@apollo/client";
+import { gql, useApolloClient, useMutation } from "@apollo/client";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/button";
 import { FormError } from "../../components/form-error";
 import PageTitle from "../../components/page-title";
@@ -8,6 +9,7 @@ import {
   CreateRestaurantMutation,
   CreateRestaurantMutationVariables,
 } from "../../__generated__/graphql";
+import { My_Restaurants_Query } from "./my-restaurants";
 
 interface ICreateForm {
   name: string;
@@ -21,18 +23,46 @@ const Create_Restaurant_Mutation = gql`
     createRestaurant(input: $input) {
       ok
       error
+      restaurantId
     }
   }
 `;
 
 const AddRestaurants = () => {
+  const client = useApolloClient();
+  const navigate = useNavigate();
+  const [imageUrl, setImageUrl] = useState("");
   const [uploading, setUploading] = useState(false);
   const onCompleted = (data: CreateRestaurantMutation) => {
     const {
-      createRestaurant: { ok, error },
+      createRestaurant: { ok, restaurantId },
     } = data;
     if (ok) {
+      const { name, address, categoryName } = getValues();
       setUploading(false);
+      const queryResult = client.readQuery({ query: My_Restaurants_Query });
+      client.writeQuery({
+        query: My_Restaurants_Query,
+        data: {
+          myRestaurants: {
+            ...queryResult.myRestaurants,
+            restaurants: [
+              {
+                address,
+                category: {
+                  name: categoryName,
+                },
+                coverImg: imageUrl,
+                id: restaurantId,
+                isPromoted: false,
+                name,
+              },
+              ...queryResult.myRestaurants.restaurants,
+            ],
+          },
+        },
+      });
+      navigate("/");
     }
   };
   const [createRestaurant, { data }] = useMutation<
@@ -60,6 +90,7 @@ const AddRestaurants = () => {
           body: formBody,
         })
       ).json();
+      setImageUrl(coverImg);
       createRestaurant({
         variables: {
           input: {
@@ -76,9 +107,9 @@ const AddRestaurants = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container flex flex-col items-center mt-28">
       <PageTitle title={"Add Restaurant"} />
-      <h1>Add Restaurant</h1>
+      <h2 className="font-bold text-4xl mb-3">Add Restaurant</h2>
       <form className="w-full grid gap-3 my-5" onSubmit={handleSubmit(onValid)}>
         <input
           className="input"

@@ -8,7 +8,7 @@ import {
   MyRestaurantsQueryVariables,
 } from "../../__generated__/graphql";
 
-const My_Restaurants_Query = gql`
+export const My_Restaurants_Query = gql`
   query myRestaurants {
     myRestaurants {
       ok
