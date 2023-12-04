@@ -8,6 +8,15 @@ import {
   MyRestaurantQuery,
   MyRestaurantQueryVariables,
 } from "../../__generated__/graphql";
+import {
+  VictoryAxis,
+  VictoryChart,
+  VictoryLabel,
+  VictoryLine,
+  VictoryTheme,
+  VictoryTooltip,
+  VictoryVoronoiContainer,
+} from "victory";
 
 export const My_Restaurant_Query = gql`
   query myRestaurant($input: MyRestaurantInput!) {
@@ -39,6 +48,11 @@ export const My_Restaurant_Query = gql`
             }
           }
         }
+        orders {
+          id
+          total
+          createdAt
+        }
       }
     }
   }
@@ -56,6 +70,16 @@ const MyRestaurant = () => {
       },
     },
   });
+  console.log(data);
+  const chartData = [
+    { x: 1, y: 3000 },
+    { x: 2, y: 1500 },
+    { x: 3, y: 4250 },
+    { x: 4, y: 2300 },
+    { x: 5, y: 7150 },
+    { x: 6, y: 6830 },
+    { x: 7, y: 8070 },
+  ];
   return (
     <div>
       <PageTitle title={"My Restaurant"} />
@@ -85,6 +109,7 @@ const MyRestaurant = () => {
             <div className="grid md:grid-cols-3 gap-x-5 gap-y-10 mt-10 mb-5">
               {data?.myRestaurant.restaurant?.menu.map((dish) => (
                 <Dish
+                  key={dish.id}
                   name={dish.name}
                   price={dish.price!}
                   description={dish.description}
@@ -92,6 +117,46 @@ const MyRestaurant = () => {
               ))}
             </div>
           )}
+        </div>
+        <div className="mt-20 mb-10">
+          <h4 className="text-center font-medium text-2xl">Sales</h4>
+          <div className="mt-10">
+            <VictoryChart
+              theme={VictoryTheme.material}
+              width={window.innerWidth}
+              height={500}
+              domainPadding={50}
+              containerComponent={<VictoryVoronoiContainer />}
+            >
+              <VictoryLine
+                labels={({ datum }) => `${datum.y}`}
+                labelComponent={
+                  <VictoryTooltip
+                    style={{ fontSize: 15 }}
+                    renderInPortal
+                    dy={-10}
+                  />
+                }
+                data={data?.myRestaurant.restaurant?.orders.map((order) => ({
+                  x: order.createdAt,
+                  y: order.total,
+                }))}
+                interpolation="natural"
+                style={{
+                  data: {
+                    strokeWidth: 3,
+                  },
+                }}
+              />
+              <VictoryAxis
+                tickLabelComponent={<VictoryLabel renderInPortal />}
+                style={{
+                  tickLabels: { fontSize: 15, fill: "#4D7C0F" },
+                }}
+                tickFormat={(tick) => new Date(tick).toLocaleDateString("ko")}
+              />
+            </VictoryChart>
+          </div>
         </div>
       </div>
     </div>

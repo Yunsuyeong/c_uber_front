@@ -40,3 +40,11 @@ export const Dish_Fragment = gql`
     }
   }
 `;
+
+export const Order_Fragment = gql`
+  fragment OrderParts on Order {
+    id
+    total
+    createdAt
+  }
+`;
