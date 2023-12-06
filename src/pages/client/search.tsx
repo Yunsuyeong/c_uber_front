@@ -52,7 +52,6 @@ const Search = () => {
       },
     });
   }, []);
-  console.log(loading, data, called);
   return (
     <div>
       <PageTitle title={`${query}`} />

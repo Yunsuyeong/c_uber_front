@@ -32,7 +32,6 @@ const MyRestaurants = () => {
     MyRestaurantsQuery,
     MyRestaurantsQueryVariables
   >(My_Restaurants_Query);
-  console.log(data);
   return (
     <div>
       <PageTitle title={"Home"} />

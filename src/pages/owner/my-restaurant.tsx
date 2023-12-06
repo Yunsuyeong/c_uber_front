@@ -70,7 +70,6 @@ const MyRestaurant = () => {
       },
     },
   });
-  console.log(data);
   const chartData = [
     { x: 1, y: 3000 },
     { x: 2, y: 1500 },
