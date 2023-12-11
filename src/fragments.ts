@@ -48,3 +48,20 @@ export const Order_Fragment = gql`
     createdAt
   }
 `;
+
+export const Full_Order_Fragment = gql`
+  fragment OrderFullParts on Order {
+    id
+    status
+    total
+    driver {
+      email
+    }
+    customer {
+      email
+    }
+    restaurant {
+      name
+    }
+  }
+`;

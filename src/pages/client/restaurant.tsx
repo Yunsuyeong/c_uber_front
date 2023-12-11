@@ -154,6 +154,9 @@ const Restaurant = () => {
     CreateOrderMutationVariables
   >(Create_Order_Mutation, { onCompleted });
   const onConfirmOrder = () => {
+    if (orderLoading) {
+      return;
+    }
     if (orderItems.length === 0) {
       alert("Can't place empty order");
       return;
@@ -174,7 +177,6 @@ const Restaurant = () => {
     setOrderStarted(false);
     setOrderItems([]);
   };
-  console.log(orderItems);
   return (
     <div>
       <PageTitle title={`${data?.restaurant.restaurant?.name}`} />
