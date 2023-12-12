@@ -1,12 +1,14 @@
-import { gql, useQuery } from "@apollo/client";
-import React from "react";
-import { Link } from "react-router-dom";
+import { gql, useQuery, useSubscription } from "@apollo/client";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Dish from "../../components/dish";
 import PageTitle from "../../components/page-title";
 import {
   MyRestaurantQuery,
   MyRestaurantQueryVariables,
+  PendingOrdersSubscription,
+  PendingOrdersSubscriptionVariables,
 } from "../../__generated__/graphql";
 import {
   VictoryAxis,
@@ -58,7 +60,27 @@ export const My_Restaurant_Query = gql`
   }
 `;
 
+const Pending_Orders_Subscription = gql`
+  subscription pendingOrders {
+    pendingOrders {
+      id
+      status
+      total
+      driver {
+        email
+      }
+      customer {
+        email
+      }
+      restaurant {
+        name
+      }
+    }
+  }
+`;
+
 const MyRestaurant = () => {
+  const navigate = useNavigate();
   const { id } = useParams() as { id: string };
   const { data, loading } = useQuery<
     MyRestaurantQuery,
@@ -70,15 +92,15 @@ const MyRestaurant = () => {
       },
     },
   });
-  const chartData = [
-    { x: 1, y: 3000 },
-    { x: 2, y: 1500 },
-    { x: 3, y: 4250 },
-    { x: 4, y: 2300 },
-    { x: 5, y: 7150 },
-    { x: 6, y: 6830 },
-    { x: 7, y: 8070 },
-  ];
+  const { data: subscriptionData } = useSubscription<
+    PendingOrdersSubscription,
+    PendingOrdersSubscriptionVariables
+  >(Pending_Orders_Subscription);
+  useEffect(() => {
+    if (subscriptionData?.pendingOrders.id) {
+      navigate(`/orders/${subscriptionData.pendingOrders.id}`);
+    }
+  }, [subscriptionData]);
   return (
     <div>
       <PageTitle title={"My Restaurant"} />
