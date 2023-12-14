@@ -1,7 +1,8 @@
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faUserLock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { isLoggedInVar } from "../apollo";
 import useMe from "../hooks/useMe";
 import logo from "../images/logo.svg";
 
@@ -12,6 +13,12 @@ interface IHeader {
 const Header: React.FC<IHeader> = () => {
   const { data } = useMe();
   const navigate = useNavigate();
+  const onLogout = () => {
+    const ok = window.confirm("Do you want to log out?");
+    if (ok) {
+      isLoggedInVar(false);
+    }
+  };
   return (
     <>
       {!data?.me.verified && (
@@ -26,11 +33,18 @@ const Header: React.FC<IHeader> = () => {
             src={logo}
             className="w-24 cursor-pointer"
           />
-          <span className="text-xs">
-            <Link to="/edit-profile">
-              <FontAwesomeIcon icon={faUser} className="text-2xl" />
-            </Link>
-          </span>
+          <div className="flex gap-4">
+            <span className="text-xs">
+              <Link to="/edit-profile">
+                <FontAwesomeIcon icon={faUser} className="text-2xl" />
+              </Link>
+            </span>
+            <span onClick={onLogout} className="text-xs">
+              <Link to="/">
+                <FontAwesomeIcon icon={faUserLock} className="text-2xl" />
+              </Link>
+            </span>
+          </div>
         </div>
       </header>
     </>

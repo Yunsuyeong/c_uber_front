@@ -25,6 +25,8 @@ const documents = {
     "\n  query restaurants($input: RestaurantsInput!) {\n    allCategories {\n      ok\n      error\n      categories {\n        id\n        name\n        coverImg\n        slug\n        restaurantCount\n      }\n    }\n    restaurants(input: $input) {\n      ok\n      error\n      totalPages\n      totalResults\n      results {\n        id\n        name\n        coverImg\n        address\n        category {\n          name\n        }\n        isPromoted\n      }\n    }\n  }\n": types.RestaurantsDocument,
     "\n  query searchRestaurant($input: SearchRestaurantInput!) {\n    searchRestaurant(input: $input) {\n      ok\n      error\n      totalPages\n      totalResults\n      restaurants {\n        id\n        name\n        coverImg\n        address\n        category {\n          name\n        }\n        isPromoted\n      }\n    }\n  }\n": types.SearchRestaurantDocument,
     "\n  mutation createAccount($createAccountInput: CreateAccountInput!) {\n    createAccount(input: $createAccountInput) {\n      ok\n      error\n    }\n  }\n": types.CreateAccountDocument,
+    "\n  subscription cookedOrders {\n    cookedOrders {\n      id\n      status\n      total\n      driver {\n        email\n      }\n      customer {\n        email\n      }\n      restaurant {\n        name\n      }\n    }\n  }\n": types.CookedOrdersDocument,
+    "\n  mutation takeOrder($input: TakeOrderInput!) {\n    takeOrder(input: $input) {\n      ok\n      error\n    }\n  }\n": types.TakeOrderDocument,
     "\n  mutation login($loginInput: LoginInput!) {\n    login(input: $loginInput) {\n      ok\n      error\n      token\n    }\n  }\n": types.LoginDocument,
     "\n  query getOrder($input: GetOrderInput!) {\n    getOrder(input: $input) {\n      ok\n      error\n      order {\n        id\n        status\n        total\n        driver {\n          email\n        }\n        customer {\n          email\n        }\n        restaurant {\n          name\n        }\n      }\n    }\n  }\n": types.GetOrderDocument,
     "\n  subscription orderUpdates($input: OrderUpdatesInput!) {\n    orderUpdates(input: $input) {\n      id\n      status\n      total\n      driver {\n        email\n      }\n      customer {\n        email\n      }\n      restaurant {\n        name\n      }\n    }\n  }\n": types.OrderUpdatesDocument,
@@ -101,6 +103,14 @@ export function gql(source: "\n  query searchRestaurant($input: SearchRestaurant
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation createAccount($createAccountInput: CreateAccountInput!) {\n    createAccount(input: $createAccountInput) {\n      ok\n      error\n    }\n  }\n"): (typeof documents)["\n  mutation createAccount($createAccountInput: CreateAccountInput!) {\n    createAccount(input: $createAccountInput) {\n      ok\n      error\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  subscription cookedOrders {\n    cookedOrders {\n      id\n      status\n      total\n      driver {\n        email\n      }\n      customer {\n        email\n      }\n      restaurant {\n        name\n      }\n    }\n  }\n"): (typeof documents)["\n  subscription cookedOrders {\n    cookedOrders {\n      id\n      status\n      total\n      driver {\n        email\n      }\n      customer {\n        email\n      }\n      restaurant {\n        name\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation takeOrder($input: TakeOrderInput!) {\n    takeOrder(input: $input) {\n      ok\n      error\n    }\n  }\n"): (typeof documents)["\n  mutation takeOrder($input: TakeOrderInput!) {\n    takeOrder(input: $input) {\n      ok\n      error\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

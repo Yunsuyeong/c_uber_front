@@ -11,6 +11,7 @@ import {
   OrderStatus,
   OrderUpdatesSubscription,
   OrderUpdatesSubscriptionVariables,
+  UserRole,
 } from "../__generated__/graphql";
 
 const Get_Order_Query = gql`
@@ -148,12 +149,12 @@ const Order = () => {
               {data?.getOrder.order?.driver?.email || "Not Yet."}
             </span>
           </div>
-          {meData?.me?.role === "Client" && (
+          {meData?.me?.role === UserRole.Client && (
             <span className="text-center text-lime-600 text-2xl mt-5 mb-3">
               Status: {data?.getOrder.order?.status}
             </span>
           )}
-          {meData?.me.role === "Owner" && (
+          {meData?.me.role === UserRole.Owner && (
             <>
               {data?.getOrder.order?.status === OrderStatus.Pending && (
                 <button
@@ -178,6 +179,31 @@ const Order = () => {
                   </span>
                 )}
             </>
+          )}
+          {meData?.me.role === UserRole.Delivery && (
+            <>
+              {data?.getOrder.order?.status === OrderStatus.Cooked && (
+                <button
+                  onClick={() => onClick(OrderStatus.PickedUp)}
+                  className="btn"
+                >
+                  Picked Up
+                </button>
+              )}
+              {data?.getOrder.order?.status === OrderStatus.PickedUp && (
+                <button
+                  onClick={() => onClick(OrderStatus.Delivered)}
+                  className="btn"
+                >
+                  Order Delivered
+                </button>
+              )}
+            </>
+          )}
+          {data?.getOrder.order?.status === OrderStatus.Delivered && (
+            <span className="text-center text-lime-600 text-2xl mt-5 mb-3">
+              Thank you for Using Uber Eats.
+            </span>
           )}
         </div>
       </div>
