@@ -17,6 +17,7 @@ const Header: React.FC<IHeader> = () => {
     const ok = window.confirm("Do you want to log out?");
     if (ok) {
       isLoggedInVar(false);
+      navigate("/");
     }
   };
   return (
@@ -39,10 +40,8 @@ const Header: React.FC<IHeader> = () => {
                 <FontAwesomeIcon icon={faUser} className="text-2xl" />
               </Link>
             </span>
-            <span onClick={onLogout} className="text-xs">
-              <Link to="/">
-                <FontAwesomeIcon icon={faUserLock} className="text-2xl" />
-              </Link>
+            <span onClick={onLogout} className="text-xs cursor-pointer">
+              <FontAwesomeIcon icon={faUserLock} className="text-2xl" />
             </span>
           </div>
         </div>
